@@ -3,6 +3,10 @@ title: Home
 layout: home
 ---
 
+# API documentation
+
+{:toc}
+
 # SaveScreenshot(element:fileName:directory)
 
 
