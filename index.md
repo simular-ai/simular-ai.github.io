@@ -1,9 +1,6 @@
 ---
-title: SimuLang API
-layout: simulang
-nav_order: 1
-description: "API documentation for Simulang."
-permalink: /
+title: Home
+layout: home
 ---
 
 # SaveScreenshot(element:fileName:directory)
