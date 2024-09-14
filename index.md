@@ -1,6 +1,9 @@
 ---
 title: Home
 layout: home
+nav_order: 1
+description: "Simular API documentation."
+permalink: /
 ---
 
 # API documentation
