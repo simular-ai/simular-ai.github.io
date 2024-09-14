@@ -2,7 +2,14 @@ title: Simular API
 description: Simular API
 theme: just-the-docs
 
-url: https://just-the-docs.github.io
+url: "https://simular-ai.github.io"
 
+defaults:
+  - scope:
+      path: "docs" # an empty string here means all files in the project
+      type: "pages"
+    values:
+      layout: "default"
+      
 aux_links:
   Simular Official: https://simular.ai
