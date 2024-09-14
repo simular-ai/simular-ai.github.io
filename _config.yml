@@ -1,8 +1,8 @@
 title: Simular API
 description: Simular API
-remote_theme: just-the-docs
+theme: just-the-docs
 
-url: https://simular-ai.github.io
+url: https://just-the-docs.github.io
 
 aux_links:
-  Simular: https://simular.ai
+  Template Repository: https://github.com/just-the-docs/just-the-docs-template
