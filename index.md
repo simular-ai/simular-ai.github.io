@@ -107,7 +107,7 @@ Open or switch to an application.
 func Open(app: String? = nil,
                    url: String? = nil,
                    waitForLoadComplete: Bool = true,
-                   waitTime: Int = 0)  
+                   waitTime: Int = 0) 
 ```
 
 ## Parameters
@@ -227,7 +227,7 @@ func Shortcut(key: String,
                   ctrl: Bool,
                   option: Bool,
                   shift: Bool,
-                  waitTime: Int)  
+                  waitTime: Int) 
 ```
 
 ## Parameters
@@ -247,14 +247,10 @@ Whether the option modifier should be pressed when tapping the key.
 ### shift
 Whether the shift modifier should be pressed when tapping the key.
 
-### waitTime
-Time in second to wait after executing the action.
-
 
 ## Return Value
 
 None
-
 
 ## Discussion
 
@@ -438,7 +434,7 @@ Move(to: "textarea", spatialRelation: "below", anchorConcept: "verify insurance"
 
 
 
-# GetElements(elementRoles:elementOverallDescription:threshold:root:spatialRelation:anchorRole:anchorOverallDescription:anchorElements:horizontalRank:verticalRank:sortBy:returnType)
+# GetElements(elementRoles:elementOverallDescription:threshold:root:spatialRelation:anchorRole:anchorOverallDescription:anchorElements:horizontalRank:verticalRank:sortBy:useNeighborForMissingDescription:returnType)
 
 
 Get elements that satisfy some conditions inside the current frontmost application or inside a root element (if given).
@@ -459,6 +455,7 @@ func GetElements(
         horizontalRank: Int? = nil,
         verticalRank: Int? = nil,
         sortBy: String = "",
+        useNeighborForMissingDescription: Bool = false,
         returnType: String = "elementArray"
     ) -> Any? 
 ```
@@ -505,6 +502,10 @@ Top-most element has rank 1.
 Returns the found elements in sorted order, by "x" (left to right) or "y" (top to bottom).
 Used only if `returnType` is "elementArray".
 
+### useNeighborForMissingDescription
+Whether or not to use the description of an element's neighbor
+as a substitute if the element's description is empty. This is only used if returnType involves returning element descriptions.
+
 ### returnType
 Options are: "elementArray" (default), "string", "stringArray", "strToElemDict".
 - elementArray: returns an array of UIElements
@@ -515,8 +516,7 @@ Options are: "elementArray" (default), "string", "stringArray", "strToElemDict".
 
 ## Return Value
 
-Depending on returnType: [UIElement] | String | [String] | [String: UIElement]
-
+Depending on returnType: [UIElement], String, [String], [String: UIElement]
 
 ## Discussion
 
@@ -599,7 +599,6 @@ Optional LLM model specification. Inquire for more details.
 
 String
 
-
 ## Discussion
 
 Examples:
@@ -636,7 +635,6 @@ An array of target concepts to find.
 
 If all concepts can be found, returns true, otherwise false.
 
-
 ## Discussion
 
 Examples:
@@ -658,24 +656,21 @@ if ConceptsExist(concepts: ["sign in button", "log in button"]) {
 
 # WaitForConcepts(concepts)
 
-Waits until all concepts can be found in the current frontmost window. If not all concepts can be found within 10 seconds, then
-returns failure.
+Waits until all concepts can be found in the current frontmost window.
+If not all concepts can be found within 10 seconds, action returns failure
 
 
 ```swift
-func WaitForConcepts(concepts: [String])  
+func WaitForConcepts(concepts: [String]) 
 ```
 
 ## Parameters
 
-### concepts
-An array of target concepts to find.
 
 
 ## Return Value
 
 None
-
 
 ## Discussion
 
@@ -711,13 +706,12 @@ Gets content from the subtree rooted at elements that match this concept.
 Get content from the subtree rooted at this element.
 
 ### format
-Format of the returned content. Options are: "flat", "json", "xml"
+Format of the returned content. Options are: "flat", "json", "xml", "xmlSlim"
 
 
 ## Return Value
 
 If `inElement` argument is given or the frontmost window was used (because neither `inConcept` nor
-
 `inElement` was given), then returns a single String. Otherwise, returns a [String] array with one String per root element.
 
 ## Discussion
@@ -728,9 +722,9 @@ Examples:
 ```swift
 var pageContent = GetContent(format: "json")
 ```
-- Instruction: get content from the table element
+- Instruction: get content from the table element in xml slim format
 ```swift
-var tableContent = GetContent(inElement: table)
+var tableContent = GetContent(inElement: table, format: "xmlSlim")
 ```
 - Instruction: get content inside group job post details
 ```swift
@@ -758,7 +752,6 @@ An optional prompt for an LLM.
 ## Return Value
 
 String
-
 
 ## Discussion
 
@@ -793,7 +786,6 @@ Array of column header
 
 Array of column id, each is a capital letter from A to Z
 
-
 ## Discussion
 
 Examples:
@@ -825,7 +817,6 @@ For example "B42" is the cell at column B row 42.
 ## Return Value
 
 Value of the cell
-
 
 ## Discussion
 
@@ -871,6 +862,35 @@ Examples:
 ```swift
 SetGoogleSheetCellValue(cell: "B42", value: "Simular")
 ```
+
+
+
+# Print(_)
+
+
+Writes the textual representations of the given item into debug console.
+
+```swift
+func Print(_ item: Any) 
+```
+
+## Parameters
+
+
+
+## Return Value
+
+None
+
+## Discussion
+
+Examples:
+
+- Instruction: print("Simular") in console
+```swift
+Print("Simular")
+```
+///
 
 
 
@@ -941,8 +961,7 @@ than thos threshold will be used.
 ## Return Value
 
 A [String] array with length equal to the number of elements. The i-th entry is the concatenated attribute values
-
-    for the i-th element.
+for the i-th element.
 
 ## Discussion
 
@@ -983,8 +1002,7 @@ A column element that contains one or more cells.
 ## Return Value
 
 An array of cell elements contained in the given row or column. If input is a row, the output array is sorted by
-
-    increasing x-coordinate (left to right). If input is a column, the output array is sorted by increasing y-coordinate (top to bottom).
+increasing x-coordinate (left to right). If input is a column, the output array is sorted by increasing y-coordinate (top to bottom).
 
 ## Discussion
 
@@ -1018,7 +1036,6 @@ A cell element.
 
 Value contained in the cell.
 
-
 ## Discussion
 
 Examples:
@@ -1033,23 +1050,24 @@ var cellValue = GetCellValue(cell: cell)
 # GetDictFromJson(jsonStr)
 
 
-Gets a dictionary from the given JSON-formatted input.
+Gets a dictionary from the JSON-formatted part of a string.
+The input string must contain at most one pair of outermost curly braces { ... }.
+Returns an empty dictionary if the input does not contain a JSON-formatted substring.
 
 
 ```swift
-func GetDictFromJson(jsonStr: String) -> [String: String]? 
+func GetDictFromJson(jsonStr: String) -> [String: Any]? 
 ```
 
 ## Parameters
 
 ###  jsonStr
-A JSON-formatted String.
+A string that contains JSON-formatted data.
 
 
 ## Return Value
 
-A dictionary representation of the input.
-
+A dictionary representation of the JSON data in the input `jsonStr`
 
 ## Discussion
 
@@ -1083,7 +1101,6 @@ func GetFromClipboard() -> String
 
 Content of the currrent clipboard
 
-
 ## Discussion
 
 Examples:
@@ -1114,8 +1131,7 @@ An array of UIElements `[u_1, ..., u_n]`.
 ## Return Value
 
 An array of String `[s_1, ..., s_n]`, where each `s_i` is an XML-formatted description of the contents
-
-    rooted at `u_i`.
+rooted at `u_i`.
 
 ## Discussion
 
@@ -1203,7 +1219,6 @@ A query used to search the dictionary.
 
 Dictionary value corresponding to the key that contains the query.
 
-
 ## Discussion
 
 Examples:
@@ -1221,11 +1236,12 @@ if var elem = SoftDictLookup(dict: elemDict, query: "first name") {
 # Wait(unit:waitTime)
 
 
+
 Put Agent into sleep state for a certain amount of time.
 
 
 ```swift
-func Wait(unit: String, waitTime: Int)  
+func Wait(unit: String, waitTime: Int) 
 ```
 
 ## Parameters
@@ -1233,14 +1249,10 @@ func Wait(unit: String, waitTime: Int)
 ### unit
 Units of waitTime, default is s for seconds. Options are s and ms.
 
-### waitTime
-Duration of time to wait in the given units.
-
 
 ## Return Value
 
 None
-
 
 ## Discussion
 
@@ -1282,7 +1294,6 @@ values of the cell
 
 [String] array of cell indices]
 
-
 ## Discussion
 
 Examples:
@@ -1313,7 +1324,6 @@ A cell element
 ## Return Value
 
 cell's label String. Example: "A1"
-
 
 ## Discussion
 
@@ -1351,7 +1361,6 @@ index of column header, e.g. "B42".
 
 Dictionary of [String: UIElement] pair for all information in the column under header
 
-
 ## Discussion
 
 Examples:
@@ -1363,5 +1372,50 @@ var websiteColumn = GetTableColumn(header: "Website")
 - Instruction: Get the columns under index A1
 ```swift
 var A1Column = GetTableColumn(index: "A1")
+```
+
+
+
+# WriteToFile(text:filePath:overwrite)
+
+
+Writes the given text to a file. If the file already exists, then appends text to it, with an option to overwrite the existing content.
+
+
+```swift
+func WriteToFile(
+        text: String,
+        filePath: String? = nil,
+        overwrite: Bool = false
+    )  
+```
+
+## Parameters
+
+### text
+Text to write to a file.
+
+### filePath
+Full path to a file. If not provided, then the default is a file "SimularActionResult.txt" at the desktop.
+
+### overwrite
+Whether or not to overwrite the contents if filePath points to an existing file.
+
+
+## Return Value
+
+None
+
+## Discussion
+
+Examples:
+
+- Instruction: Append jsonResult to /User/somebody/Documents/result.json
+```swift
+WriteToFile(text: jsonResult, filePath: "/User/somebody/Documents/result.json")
+```
+- Instruction: Write jsonResult to /User/someone/Desktop/result.json, overwrite existing file.
+```swift
+WriteToFile(text: jsonResult, filePath: "/User/someone/Desktop/result.json", overwrite: true)
 ```
 
