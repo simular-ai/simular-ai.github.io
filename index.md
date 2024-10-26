@@ -119,10 +119,10 @@ application name, e.g., Google Chrome, iMessage.
 url address of a web page, e.g., google.com
 
 ### waitForLoadComplete
-Whether or not to wait for a page to complete loading after typing.
+Whether or not to wait for the app or URL to complete loading. Default is true.
 
 ### waitTime
-Duration in seconds to wait after typing.
+Duration in seconds to wait after opening the app or URL, in addition to the wait for load.
 
 
 ## Return Value
@@ -153,14 +153,14 @@ Open(url: "https://simular.ai")
 
 
 
-# `Type`(text:withReturn:waitTime:waitForLoadComplete)
+# Type(text:withReturn:waitTime:waitForLoadComplete)
 
 
 Type using the keyboard.
 
 
 ```swift
-func `Type`(
+func Type(
         text: String,
         withReturn: Bool = false,
         waitTime: Int = 0,
@@ -279,7 +279,7 @@ Shortcut(key: "enter")
 
 
 
-# Click(at:element:clickType:withCommand:spatialRelation:anchorConcept:prior:position:includeInvisible:waitForLoadComplete:waitTime)
+# Click(_:element:clickType:withCommand:spatialRelation:anchorConcept:prior:position:includeInvisible:waitForLoadComplete:waitTime)
 
 
 Click on something, either specified by the `at` argument or the `element` argument.
@@ -288,7 +288,7 @@ Disambiguate by specifing the spatial relation between the target element and an
 
 ```swift
 func Click(
-        at: String = "",
+        _ at: String = "",
         element: UIElement? = nil,
         clickType: String = "left",
         withCommand: Bool = false,
@@ -363,14 +363,14 @@ Click(at: "verify insurance button", withCommand: true)
 ```swift
 Click(at: "Styles.zip", clickType: "doubleClick")
 ```
-- Instruction: click slider closest to pointer size
+- Instruction: click "slider" closest to and on the right of "pointer size"
 ```swift
-Click(at: "slider", spatialRelation: "closest", anchorConcept: "pointer size")
+Click(at: "slider", spatialRelation: "closest,right", anchorConcept: "pointer size")
 ```
 
 
 
-# Move(to:element:spatialRelation:anchorConcept:prior:includeInvisible:waitForLoadComplete:waitTime)
+# Move(_:element:spatialRelation:anchorConcept:prior:includeInvisible:waitForLoadComplete:waitTime)
 
 
 Moves the cursor to an object. Disambiguate by specifing the spatial relation between the target element and an anchor concept.
@@ -379,7 +379,7 @@ All parameters besides `to` have the same definition as those in the `Click` act
 
 ```swift
 func Move(
-        to: String = "",
+        _ to: String = "",
         element: UIElement? = nil,
         spatialRelation: String = "",
         anchorConcept: String = "",
@@ -471,7 +471,7 @@ Description of elements to get from the page. Required if elementRoles are not p
 
 ### threshold
 If `elementOverallDescription` is given, then accept candidate elements whose normalized string
-distance to `elementOverallDescription` is below this threshold value.
+similarity to `elementOverallDescription` is above this threshold value.
 
 ### root
 If given, then the search is limited to elements contained within this root element.
@@ -537,14 +537,91 @@ var cellDict = GetElements(elementRoles: ["cell"], spatialRelation: "containedIn
 
 
 
-# Respond(message:requireConfirm)
+# GetAttributeOfElement(elementRole:elementOverallDescription:attribute:threshold:root:spatialRelation:anchorRole:anchorOverallDescription:anchorElements:horizontalRank:verticalRank)
+
+
+Searches for an element that matches the input criteria and gets the element's value for a specified attribute.
+
+
+```swift
+func GetAttributeOfElement(
+        elementRole: String = "",
+        elementOverallDescription: String = "",
+        attribute: String = "",
+        threshold: Double = 0.75,
+        root: UIElement? = nil,
+        spatialRelation: String = "",
+        anchorRole: String = "",
+        anchorOverallDescription: String = "",
+        anchorElements: [UIElement] = [],
+        horizontalRank: Int? = nil,
+        verticalRank: Int? = nil
+    ) -> String 
+```
+
+## Parameters
+
+### elementRole
+Role of the target element. Required if elementOverallDescription is not given.
+
+### elementOverallDescription
+Description of the element. Required if elementRoles are not provided.
+
+### attribute
+Valid options are: "role", "description", "title", "value". For example, use "value" to get the value of text elements.
+
+### threshold
+If `elementOverallDescription` is given, then accept candidate elements whose normalized string similarity with `elementOverallDescription` is above this threshold value.
+
+### root
+If given, then the search is limited to elements contained within this root element.
+
+### spatialRelation
+A comma-separated String of spatial relationships between the target elements and the anchor.
+
+### anchorRole
+Role of element(s) used as anchor for spatial relation.
+
+### anchorOverallDescription
+Description of an object used as an anchor with spatialRelation.
+
+### anchorElements
+Elements to use as anchor for spatial relation constraints. If `anchorElements` is provided, then anchorRole and anchorOverallDescription are ignored.
+
+### horizontalRank
+If given, sorts the elements by x-coordinate of frame midpoint and returns the element with this rank. Left-most element has rank 1.
+
+### verticalRank
+If given, sorts the elements by y-coordinate of frame midpoint and returns the element with this rank. Top-most element has rank 1.
+
+
+## Return Value
+
+String value of an attribute of an element
+
+## Discussion
+
+Examples:
+
+- Instruction: Get the value of the radioButton element with description "radioButton tab point & click"
+```swift
+var value = GetAttributeOfElement(elementRole: "radioButton", elementOverallDescription: "radioButton tab point & click", attribute: "value")
+```
+- Instruction: Get the value of the valueIndicator element closest to and on the right of "statictext text double-click speed"
+```swift
+var value = GetAttributeOfElement(elementRole: "valueIndicator", attribute: "value", spatialRelation: "closest,right", anchorOverallDescription: "statictext text double-click speed")
+```
+
+
+
+# Respond(_:requireConfirm)
 
 
 Respond to the user with a message and optionally ask for user confirmation to proceed.
 
 
 ```swift
-func Respond(message: String, requireConfirm: Bool = false)  
+func Respond(_ message: String, requireConfirm: Bool = false)  
 ```
 
 ## Parameters
@@ -615,14 +692,14 @@ var summary = LLM(input: "Summarize the following into 50 words: \(content)")
 
 
 
-# ConceptsExist(concepts)
+# ConceptsExist(_)
 
 
 Checks if all the concepts can be found on the current visible screen.
 
 
 ```swift
-func ConceptsExist(concepts: [String]) -> Bool 
+func ConceptsExist(_ concepts: [String]) -> Bool 
 ```
 
 ## Parameters
@@ -890,8 +967,6 @@ Examples:
 ```swift
 Print("Simular")
 ```
-///
-
 
 
 # CopyToClipboard(text)
@@ -1083,6 +1158,37 @@ var dict = GetDictFromJson(jsonStr: llmOutput)
 
 
 
+# GetJSONFromDict(dict)
+
+
+Gets a JSON representation of a dictionary.
+
+
+```swift
+func GetJSONFromDict(dict: [String: Any]) -> String 
+```
+
+## Parameters
+
+###  dict
+A [String: Any] dictionary.
+
+
+## Return Value
+
+A JSON representation of the input dictionary.
+
+## Discussion
+
+Examples:
+
+- Instruction: convert dict to json.
+```swift
+var json = GetJSONFromDict(dict)
+```
+
+
+
 # GetFromClipboard()
 
 
@@ -1233,21 +1339,20 @@ if var elem = SoftDictLookup(dict: elemDict, query: "first name") {
 
 
 
-# Wait(unit:waitTime)
-
+# Wait(_:unit)
 
 
 Put Agent into sleep state for a certain amount of time.
 
 
 ```swift
-func Wait(unit: String, waitTime: Int) 
+func Wait(_ waitTime: Int, unit: String = "s") 
 ```
 
 ## Parameters
 
 ### unit
-Units of waitTime, default is s for seconds. Options are s and ms.
+Options are "s" for seconds (default) and "ms" for milliseconds.
 
 
 ## Return Value
@@ -1260,15 +1365,11 @@ Examples:
 
 - Instruction: Wait for 3s
 ```swift
-Wait(waitTime: 3, unit: "s")
+Wait(3)
 ```
-- Instruction: Wait for 0.5s
+- Instruction: Wait for 500ms
 ```swift
 Wait(waitTime: 500, unit: "ms")
-```
-- Instruction: Wait for 6 seconds
-```swift
-Wait(waitTime: 6)
 ```
 
 
@@ -1376,16 +1477,53 @@ var A1Column = GetTableColumn(index: "A1")
 
 
 
-# WriteToFile(text:filePath:overwrite)
+# ReadFile(path)
+
+
+Read the contents of a file whose location is specified by `path`.
+
+
+```swift
+func ReadFile(path: String) -> String 
+```
+
+## Parameters
+
+###  path
+Either an absolute path to a file, or a name of a file (assumed to be in the default app cache directory).
+
+
+## Return Value
+
+Contents of the file as a String
+
+## Discussion
+
+Examples:
+
+- Instruction: read the file named results.json
+```swift
+var results = ReadFile(path: "results.json")
+```
+- Instruction: get contents of file /Users/somebody/Documents/project/links.txt
+```swift
+var links = ReadFile(path: "/Users/somebody/Documents/project/links.txt")
+```
+
+
+
+# WriteToFile(text:path:overwrite)
 
 
 Writes the given text to a file. If the file already exists, then appends text to it, with an option to overwrite the existing content.
+Unless specified path, writes to desktop /Library/Caches/com.simular.SimularNote/SimularActionResult/
+Will throw an error if there is non-folder file named SimularActionResult also existing at desktop
 
 
 ```swift
 func WriteToFile(
         text: String,
-        filePath: String? = nil,
+        path: String? = "SimularActionResult.txt",
         overwrite: Bool = false
     )  
 ```
@@ -1395,8 +1533,8 @@ func WriteToFile(
 ### text
 Text to write to a file.
 
-### filePath
-Full path to a file. If not provided, then the default is a file "SimularActionResult.txt" at the desktop.
+### path
+path of the file, default at /Library/Caches/com.simular.SimularNote/SimularActionResult/{path}.txt. If path contains "/", treat it as full path
 
 ### overwrite
 Whether or not to overwrite the contents if filePath points to an existing file.
@@ -1412,10 +1550,13 @@ Examples:
 
 - Instruction: Append jsonResult to /User/somebody/Documents/result.json
 ```swift
-WriteToFile(text: jsonResult, filePath: "/User/somebody/Documents/result.json")
+WriteToFile(text: jsonResult, path: "/User/somebody/Documents/result.json")
 ```
 - Instruction: Write jsonResult to /User/someone/Desktop/result.json, overwrite existing file.
 ```swift
-WriteToFile(text: jsonResult, filePath: "/User/someone/Desktop/result.json", overwrite: true)
+WriteToFile(text: jsonResult, path: "/User/someone/Desktop/result.json", overwrite: true)
 ```
-
+- Instruction: Write jsonResult to default action result file, overwrite existing file.
+```swift
+WriteToFile(text: jsonResult, overwrite: true)
+```
