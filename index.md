@@ -298,7 +298,8 @@ func Click(
         position: String = "center",
         includeInvisible: Bool = false,
         waitForLoadComplete: Bool = false,
-        waitTime: Int = 0
+        waitTime: Int = 0,
+        withVision: Bool = false
     )  
 ```
 
@@ -341,6 +342,8 @@ If true, waits for page to finish loading after the click.
 ### waitTime
 Integer number of seconds to wait after click.
 
+### withVision
+Enable vision-language model to pinpoint and click target based on description of the target object. Screenshot permission is required.
 
 ## Return Value
 
@@ -366,6 +369,10 @@ Click(at: "Styles.zip", clickType: "doubleClick")
 - Instruction: click "slider" closest to and on the right of "pointer size"
 ```swift
 Click(at: "slider", spatialRelation: "closest,right", anchorConcept: "pointer size")
+```
+- Instruction: click "slider" closest to and on the right of "pointer size"
+```swift
+Click(at: "the closest slider on the right of pointer size", withVision: true)
 ```
 
 
