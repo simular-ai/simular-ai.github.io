@@ -1,9 +1,9 @@
 ---
-title: Home
+title: API
 layout: home
 nav_order: 1
-description: "Simular API documentation."
-permalink: /
+description: "Archived Simular API reference."
+permalink: /api/
 ---
 
 # API documentation

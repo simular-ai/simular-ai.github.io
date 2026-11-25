@@ -1,0 +1,405 @@
+@font-face {
+  font-family: Adamina;
+  src: url("fonts/adamina.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Manrope;
+  src: url("fonts/manrope.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("fonts/instrument-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --ink: #211e1a;
+  --muted: #5d554e;
+  --paper: #faf8f5;
+  --stone: #f0ece6;
+  --line: #d8d0c6;
+  --green: #304a3c;
+  --serif: Adamina, Georgia, serif;
+  --ui: "Instrument Sans", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font: 400 1rem/1.65 Manrope, Arial, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, h1, h2, h3, p, figure, dl, dd {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  letter-spacing: -.052em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.05rem);
+  letter-spacing: -.043em;
+}
+
+h3 {
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  letter-spacing: -.028em;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: .18em;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 4px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.wrap {
+  width: min(100% - 3rem, 71rem);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  z-index: 2;
+  padding: .6rem 1rem;
+  background: white;
+  transform: translateY(calc(-100% - 1rem));
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner, .footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .65rem 2rem;
+  min-height: 4.5rem;
+  padding-block: .7rem;
+}
+
+.wordmark {
+  font: 650 1.27rem/1.15 var(--ui);
+  letter-spacing: -.045em;
+  text-decoration: none;
+}
+
+.wordmark span {
+  margin-inline-start: .12em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem clamp(1rem, 3vw, 2.25rem);
+}
+
+nav a {
+  font: 550 .91rem/1.5 var(--ui);
+  padding-block: .35rem;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.hero {
+  background:
+    linear-gradient(90deg, rgba(250, 248, 245, .94) 0%, rgba(250, 248, 245, .83) 36%, rgba(250, 248, 245, .22) 75%, transparent 100%),
+    url("misty-valley.jpg") 50% 55% / cover no-repeat,
+    #e8e6de;
+}
+
+.hero-inner {
+  min-height: clamp(27rem, 44vw, 35rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-block: 4rem;
+}
+
+.hero p {
+  max-width: 35rem;
+  margin-top: 1.35rem;
+  font-size: clamp(1.02rem, 1.7vw, 1.22rem);
+  font-weight: 500;
+  color: #48433b;
+}
+
+.actions, .text-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .85rem 1.15rem;
+  margin-top: 1.8rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.85rem;
+  border: 1px solid transparent;
+  border-radius: .4rem;
+  padding: .6rem 1.12rem;
+  font: 600 .94rem/1.25 var(--ui);
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--ink);
+  color: #fff;
+}
+
+.primary:hover {
+  background: var(--green);
+}
+
+.secondary {
+  border-color: #70665c;
+  background: rgba(250, 248, 245, .75);
+}
+
+.secondary:hover {
+  background: #fff;
+}
+
+.section {
+  padding-block: clamp(3.25rem, 7vw, 6.2rem);
+  scroll-margin-top: .8rem;
+}
+
+.feature-grid, .tools-grid {
+  display: grid;
+  grid-template-columns: 1.15fr minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 5.6rem);
+}
+
+.feature-grid > div > p:not(.eyebrow), .section-heading p {
+  max-width: 39rem;
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.eyebrow {
+  margin-bottom: .75rem;
+  color: var(--muted);
+  font: 600 .78rem/1.4 var(--ui);
+  letter-spacing: .063em;
+  text-transform: uppercase;
+}
+
+.text-links, .more-link, .paper-link {
+  color: var(--green);
+  font: 600 .94rem/1.4 var(--ui);
+}
+
+.result {
+  padding: clamp(1.15rem, 3vw, 1.9rem);
+  border: 1px solid var(--line);
+  border-radius: .7rem;
+  background: #fffdfa;
+  font: 500 .92rem/1.45 var(--ui);
+}
+
+.result figcaption {
+  display: grid;
+  gap: .25rem;
+  margin-bottom: 1.4rem;
+}
+
+.result figcaption strong {
+  font-size: 1.06rem;
+}
+
+.result figcaption span, .axis {
+  color: var(--muted);
+}
+
+.result-row {
+  margin-bottom: .85rem;
+}
+
+.result-row > div:first-child, .axis {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.bar-track {
+  height: .48rem;
+  margin-top: .36rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--stone);
+}
+
+.bar {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.bar.baseline {
+  width: 22.4%;
+  background: #8d8274;
+}
+
+.bar.evolved {
+  width: 85.2%;
+  background: var(--green);
+}
+
+.axis {
+  font-size: .76rem;
+}
+
+.publications {
+  background: var(--stone);
+  border-block: 1px solid var(--line);
+}
+
+.section-heading {
+  margin-bottom: clamp(1.4rem, 4vw, 2.8rem);
+}
+
+.paper-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.paper {
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.paper h3 a {
+  text-decoration-color: #9c9287;
+  text-decoration-thickness: 1px;
+}
+
+.paper h3 a:hover {
+  color: var(--green);
+  text-decoration-color: currentColor;
+}
+
+.paper h3 + p, .resource-list dd {
+  margin-top: .5rem;
+  color: var(--muted);
+  font-size: .94rem;
+}
+
+.paper-link, .more-link {
+  display: inline-block;
+  margin-top: .7rem;
+}
+
+.tools-grid {
+  grid-template-columns: minmax(0, .65fr) minmax(0, 1fr);
+}
+
+.resource-list > div {
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.resource-list > div:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.resource-list dt {
+  font: 600 1.02rem/1.45 var(--ui);
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+
+@media (max-width: 48rem) {
+  .feature-grid, .tools-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero {
+    background-position: 58% center;
+  }
+}
+
+@media (max-width: 36rem) {
+  .wrap {
+    width: calc(100% - 2rem);
+  }
+
+  .header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero {
+    background-image:
+      linear-gradient(90deg, rgba(250, 248, 245, .96), rgba(250, 248, 245, .75) 72%, rgba(250, 248, 245, .5)),
+      url("misty-valley.jpg");
+  }
+
+  .hero-inner {
+    min-height: 27rem;
+    padding-block: 3rem;
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 9.35vw, 2.75rem);
+  }
+
+  .paper-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 22rem) {
+  .header-inner nav {
+    column-gap: .65rem;
+  }
+
+  .header-inner nav a {
+    font-size: .8rem;
+  }
+}
