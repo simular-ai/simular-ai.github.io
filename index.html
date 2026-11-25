@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Simular's research on computer-use agents, from the open-source Agent S series to work on reliability, reasoning, and reusable interfaces.">
+  <meta name="theme-color" content="#faf8f5">
+  <title>Simular Research | Computer-use agents</title>
+  <link rel="canonical" href="https://research.simular.ai/">
+  <meta property="og:title" content="Simular Research | Computer-use agents">
+  <meta property="og:description" content="Papers, projects, and open-source code from Simular.">
+  <meta property="og:image" content="https://research.simular.ai/assets/research/misty-valley.jpg">
+  <meta property="og:url" content="https://research.simular.ai/">
+  <meta property="og:type" content="website">
+  <link rel="preload" href="assets/research/fonts/adamina.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/research/styles.css">
+  <script src="assets/research/legacy-fragment.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#research-main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="./">Simular <span>Research</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#research-publications">Publications</a>
+        <a href="#research-tools">Code and docs</a>
+        <a href="https://www.simular.ai/">Back to Simular</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="research-main" tabindex="-1">
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <h1>Research on<br> computer-use agents</h1>
+        <p>We study how AI agents use browsers, desktop apps, and code to get work done. Explore our papers, benchmarks, and open-source implementations.</p>
+        <div class="actions">
+          <a class="button primary" href="#research-publications">Explore publications</a>
+          <a class="button secondary" href="https://github.com/simular-ai/Agent-S">View Agent S on GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section featured" id="research-featured" aria-labelledby="featured-title">
+      <div class="wrap feature-grid">
+        <div>
+          <p class="eyebrow">Agent S4 · October 2026 preprint</p>
+          <h2 id="featured-title">Evolving Agent Interfaces</h2>
+          <p>Agent S4 learns better ways to use software from its own attempts. A separate agent reviews task traces and turns recurring patterns into reusable tools, scripts, and guidance for future tasks.</p>
+          <div class="text-links">
+            <a href="https://arxiv.org/abs/2610.28601">Read the paper</a>
+            <a href="https://github.com/simular-ai/Agent-S/tree/main/agent_s4">View the code</a>
+          </div>
+        </div>
+
+        <figure class="result">
+          <figcaption>
+            <strong>OSWorld V2 binary task success</strong>
+            <span>Same Qwen3.8-27B model across 108 tasks</span>
+          </figcaption>
+          <div class="result-row">
+            <div><span>Fixed interfaces</span><strong>5.6%</strong></div>
+            <div class="bar-track" aria-hidden="true"><div class="bar baseline"></div></div>
+          </div>
+          <div class="result-row">
+            <div><span>Evolved interfaces</span><strong>21.3%</strong></div>
+            <div class="bar-track" aria-hidden="true"><div class="bar evolved"></div></div>
+          </div>
+          <div class="axis" aria-hidden="true"><span>0%</span><span>25%</span></div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section publications" id="research-publications" aria-labelledby="publications-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2 id="publications-title">Selected publications</h2>
+          <p>Research on how agents build skills, recognize uncertainty, and work reliably across applications.</p>
+        </div>
+        <div class="paper-grid">
+          <article class="paper">
+            <p class="eyebrow">arXiv · October 2026</p>
+            <h3><a href="https://arxiv.org/abs/2610.22280">LEASH</a></h3>
+            <p>A smaller agent uses its uncertainty to decide when to hand off to a stronger model and keeps monitoring after the handoff.</p>
+          </article>
+          <article class="paper">
+            <p class="eyebrow">arXiv · September 2026</p>
+            <h3><a href="https://arxiv.org/abs/2609.36927">Neuro-Symbolic Computer Use</a></h3>
+            <p>Turns repeated workflow steps into executable policies and uses learned models for decisions that depend on what’s on screen.</p>
+          </article>
+          <article class="paper">
+            <p class="eyebrow">TMLR · 2026</p>
+            <h3><a href="https://arxiv.org/abs/2510.02250">Agent S3: Scaling Agents for Computer Use</a></h3>
+            <p>Compares multiple attempts using records of what the agents did to select an execution more likely to have completed the task.</p>
+          </article>
+          <article class="paper">
+            <p class="eyebrow">arXiv · May 2026</p>
+            <h3><a href="/insight-replay/">Stateful Reasoning via Insight Replay</a></h3>
+            <p>Brings relevant insights from earlier in a long reasoning process back into view when the model needs them.</p>
+            <a class="paper-link" href="https://arxiv.org/abs/2605.14457">Read the paper</a>
+          </article>
+          <article class="paper">
+            <p class="eyebrow">arXiv · April 2026</p>
+            <h3><a href="https://arxiv.org/abs/2604.17849">On the Reliability of Computer Use Agents</a></h3>
+            <p>Runs the same desktop tasks repeatedly to measure how often agents succeed consistently and where their behavior varies.</p>
+          </article>
+          <article class="paper">
+            <p class="eyebrow">COLM · 2025</p>
+            <h3><a href="https://proceedings.colm.cc/paper_files/paper/2025/hash/aef34c770664d06eabdfebc5d3d58a9c-Abstract-Conference.html">Agent S2</a></h3>
+            <p>Combines a generalist planner with specialists that locate interface elements, then updates the plan as the screen changes.</p>
+          </article>
+          <article class="paper">
+            <p class="eyebrow">ICLR · 2025</p>
+            <h3><a href="https://proceedings.iclr.cc/paper_files/paper/2025/hash/394c7c30ea87b5c3521b4d9e9d419071-Abstract-Conference.html">Agent S</a></h3>
+            <p>Introduces an open-source framework that reuses experience from earlier tasks to plan and carry out desktop work.</p>
+          </article>
+        </div>
+        <a class="more-link" href="https://www.simular.ai/research">More research from Simular</a>
+      </div>
+    </section>
+
+    <section class="section tools" id="research-tools" aria-labelledby="tools-title">
+      <div class="wrap tools-grid">
+        <h2 id="tools-title">Code and docs</h2>
+        <dl class="resource-list">
+          <div>
+            <dt><a href="https://github.com/simular-ai/Agent-S">Agent S on GitHub</a></dt>
+            <dd>Source code, examples, and setup instructions for the Agent S research series.</dd>
+          </div>
+          <div>
+            <dt><a href="https://osworld-v2.xlang.ai/">OSWorld 2.0</a></dt>
+            <dd>A benchmark of 108 workflows for evaluating computer-use agents across desktop applications.</dd>
+          </div>
+          <div>
+            <dt><a href="https://simulang.simular.ai/">Simulang</a></dt>
+            <dd>A programming language for writing reusable desktop workflows.</dd>
+          </div>
+          <div>
+            <dt><a href="https://platform.simular.ai/documentation">Sai API documentation</a></dt>
+            <dd>Current API reference and SDK guides for the Simular platform.</dd>
+          </div>
+          <div>
+            <dt><a href="api/">Archived Simular API reference</a></dt>
+            <dd>The original desktop automation API documentation.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="wordmark" href="./">Simular <span>Research</span></a>
+      <nav aria-label="Footer navigation">
+        <a href="https://www.simular.ai/">Simular</a>
+        <a href="https://github.com/simular-ai">GitHub</a>
+        <a href="api/">API archive</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
